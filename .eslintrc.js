@@ -22,6 +22,7 @@ module.exports = defineConfig({
   rules: {
     semi: ['error', 'never'],
     'vue/html-self-closing': 'off',
+    '@typescript-eslint/ban-ts-comment':'off',
     "no-undef":'warn',
     'vue/singleline-html-element-content-newline':'off',
     'vue/max-attributes-per-line': ['warn', {

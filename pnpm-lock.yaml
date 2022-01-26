@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@iconify/json': ^2.0.29
   '@typescript-eslint/eslint-plugin': ^5.10.1
   '@typescript-eslint/parser': ^5.10.1
   '@vitejs/plugin-vue': ^2.0.0
@@ -14,13 +15,16 @@ specifiers:
   vite: ^2.7.2
   vite-plugin-windicss: ^1.6.3
   vue: ^3.2.25
+  vue-router: ^4.0.2
   vue-tsc: ^0.29.8
+  vuex: ^4.0.2
   windicss: ^3.4.3
 
 dependencies:
   vue: 3.2.29
 
 devDependencies:
+  '@iconify/json': 2.0.29
   '@typescript-eslint/eslint-plugin': 5.10.1_0f442f6b60390429061d5d9b6bcaaba6
   '@typescript-eslint/parser': 5.10.1_eslint@8.7.0+typescript@4.5.5
   '@vitejs/plugin-vue': 2.1.0_vite@2.7.13+vue@3.2.29
@@ -33,7 +37,9 @@ devDependencies:
   unplugin-vue-components: 0.17.14_vite@2.7.13+vue@3.2.29
   vite: 2.7.13
   vite-plugin-windicss: 1.6.3_vite@2.7.13
+  vue-router: 4.0.12_vue@3.2.29
   vue-tsc: 0.29.8_typescript@4.5.5
+  vuex: 4.0.2_vue@3.2.29
   windicss: 3.4.3
 
 packages:
@@ -141,6 +147,13 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha1-tSBSnsIdjllFoYUd/Rwy6U45/0U=, tarball: '@humanwhocodes/object-schema/download/@humanwhocodes/object-schema-1.2.1.tgz'}
+    dev: true
+
+  /@iconify/json/2.0.29:
+    resolution: {integrity: sha512-9sxNQhWmPxzi+hu/IYxisdvORfMcEUCp9UTymAbOh1asQ19mOCkRZ+6FoBRuubJSzHUQwZZb4zhiZYJEoX6z1g==, tarball: '@iconify/json/download/@iconify/json-2.0.29.tgz'}
+    dependencies:
+      '@iconify/types': 1.0.12
+      pathe: 0.0.2
     dev: true
 
   /@iconify/types/1.0.12:
@@ -450,6 +463,10 @@ packages:
       '@vue/compiler-dom': 3.2.29
       '@vue/shared': 3.2.29
     dev: false
+
+  /@vue/devtools-api/6.0.0-beta.21.1:
+    resolution: {integrity: sha512-FqC4s3pm35qGVeXRGOjTsRzlkJjrBLriDS9YXbflHLsfA9FrcKzIyWnLXoNm+/7930E8rRakXuAc2QkC50swAw==, tarball: '@vue/devtools-api/download/@vue/devtools-api-6.0.0-beta.21.1.tgz'}
+    dev: true
 
   /@vue/reactivity-transform/3.2.29:
     resolution: {integrity: sha512-YF6HdOuhdOw6KyRm59+3rML8USb9o8mYM1q+SH0G41K3/q/G7uhPnHGKvspzceD7h9J3VR1waOQ93CUZj7J7OA==, tarball: '@vue/reactivity-transform/download/@vue/reactivity-transform-3.2.29.tgz'}
@@ -1662,6 +1679,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /pathe/0.0.2:
+    resolution: {integrity: sha1-1pB4DleKgSfh1lgoOHYJwVOvwwk=, tarball: pathe/download/pathe-0.0.2.tgz}
+    dev: true
+
   /picocolors/1.0.0:
     resolution: {integrity: sha1-y1vcdP8/UYkiNur3nWi8RFZKuBw=, tarball: picocolors/download/picocolors-1.0.0.tgz}
 
@@ -2309,6 +2330,15 @@ packages:
       - supports-color
     dev: true
 
+  /vue-router/4.0.12_vue@3.2.29:
+    resolution: {integrity: sha512-CPXvfqe+mZLB1kBWssssTiWg4EQERyqJZes7USiqfW9B5N2x+nHlnsM1D3b5CaJ6qgCvMmYJnz+G0iWjNCvXrg==, tarball: vue-router/download/vue-router-4.0.12.tgz}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@vue/devtools-api': 6.0.0-beta.21.1
+      vue: 3.2.29
+    dev: true
+
   /vue-tsc/0.29.8_typescript@4.5.5:
     resolution: {integrity: sha512-pT0wLRjvRuSmB+J4WJT6uuV9mO0KtSSXEAtaVXZQzyk5+DJdbLIQTbRce/TXSkfqt1l1WogO78RjtOJFiMCgfQ==, tarball: vue-tsc/download/vue-tsc-0.29.8.tgz}
     hasBin: true
@@ -2343,6 +2373,15 @@ packages:
       seemly: 0.3.3
       vdirs: 0.1.7_vue@3.2.29
       vooks: 0.2.12_vue@3.2.29
+      vue: 3.2.29
+    dev: true
+
+  /vuex/4.0.2_vue@3.2.29:
+    resolution: {integrity: sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==, tarball: vuex/download/vuex-4.0.2.tgz}
+    peerDependencies:
+      vue: ^3.0.2
+    dependencies:
+      '@vue/devtools-api': 6.0.0-beta.21.1
       vue: 3.2.29
     dev: true
 

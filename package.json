@@ -12,6 +12,7 @@
     "vue": "^3.2.25"
   },
   "devDependencies": {
+    "@iconify/json": "^2.0.29",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "@vitejs/plugin-vue": "^2.0.0",
@@ -24,7 +25,9 @@
     "unplugin-vue-components": "^0.17.14",
     "vite": "^2.7.2",
     "vite-plugin-windicss": "^1.6.3",
+    "vue-router": "^4.0.2",
     "vue-tsc": "^0.29.8",
+    "vuex": "^4.0.2",
     "windicss": "^3.4.3"
   }
 }

@@ -1,21 +1,22 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { GlobalThemeOverrides } from 'naive-ui'
+
+const theme: GlobalThemeOverrides = {
+  common:{
+    primaryColor:'#2196f3',
+    primaryColorHover:'#56aff6',
+    primaryColorPressed:'#0d8df2'
+  }
+}
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <NConfigProvider :theme-overrides="theme">
+    <NMessageProvider>
+      <NDialogProvider>
+        <router-view></router-view>
+      </NDialogProvider>
+    </NMessageProvider>
+  </NConfigProvider>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
