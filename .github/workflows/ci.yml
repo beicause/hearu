@@ -1,0 +1,34 @@
+name: Test
+on:
+  push:
+  pull_request:
+env:
+  FORCE_COLOR: 2
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build&Test
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: pnpm
+          registry-url: https://registry.npmmirror.com/
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Run lint
+        run: pnpm lint && pnpm check
+
+      - name: Build
+        run: pnpm build
