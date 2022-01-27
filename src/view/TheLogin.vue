@@ -2,9 +2,13 @@
 // @ts-ignore
 import AkarIconsChevronDown from '~icons/akar-icons/chevron-down'
 import { useThemeVars } from 'naive-ui'
+import { useRouter } from 'vue-router'
 
 const primaryColor = useThemeVars().value.primaryColor
-
+const router = useRouter()
+function login() {
+  router.replace('/main')
+}
 </script>
 
 <template>
@@ -18,12 +22,26 @@ const primaryColor = useThemeVars().value.primaryColor
         </div>
       </template>
     </NInput>
-    <NInput class="mt-2" placeholder="请输入密码" size="large" type="password" clearable>
+    <NInput
+      class="mt-2"
+      placeholder="请输入密码"
+      size="large"
+      type="password"
+      clearable
+    >
       <template #prefix>
         <div class="w-11">密码</div>
       </template>
     </NInput>
-    <NButton class="mt-3" size="large" type="primary" block>登录</NButton>
+    <NButton
+      class="mt-3"
+      size="large"
+      type="primary"
+      block
+      @click="login"
+    >
+      登录
+    </NButton>
     <div class="flex justify-between mt-2">
       <NButton text>忘记密码</NButton>
       <NButton text :color="primaryColor">注册账号</NButton>
