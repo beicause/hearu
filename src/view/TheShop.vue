@@ -1,3 +1,3 @@
 <template>
-  course
+  shop
 </template>

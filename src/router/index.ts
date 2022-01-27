@@ -6,11 +6,11 @@ const router: RouterOptions = {
     {
       path: '/nav', component: () => import('../view/TheNavBar.vue'),
       children: [
-        { path: 'main', component: () => import('../view/TheMain.vue') },
-        { path: 'course', component: () => import('../view/TheCourse.vue') },
-        { path: 'translation', component: () => import('../view/TheTranslationShoot.vue') },
-        { path: 'community', component: () => import('../view/TheCommunity.vue') },
-        { path: 'me', component: () => import('../view/TheMe.vue') }
+        { path: 'main', name: 'main', component: () => import('../view/TheMain.vue') },
+        { path: 'shop', name: 'shop', component: () => import('../view/TheShop.vue') },
+        { path: 'translation', name: 'translation', component: () => import('../view/TheTranslation.vue') },
+        { path: 'community', name: 'community', component: () => import('../view/TheCommunity.vue') },
+        { path: 'me', name: 'me', component: () => import('../view/TheMe.vue') }
       ]
     }
   ],

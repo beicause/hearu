@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // @ts-ignore
-import AkarIconsChevronDown from '~icons/akar-icons/chevron-down'
+import ChevronDown from '~icons/akar-icons/chevron-down'
 import { useThemeVars } from 'naive-ui'
 import { useRouter } from 'vue-router'
 
@@ -18,7 +18,7 @@ function login() {
       <template #prefix>
         <div class="w-11 flex items-center">
           +86
-          <AkarIconsChevronDown></AkarIconsChevronDown>
+          <ChevronDown />
         </div>
       </template>
     </NInput>
