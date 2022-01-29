@@ -1,3 +1,94 @@
+<script setup lang="ts">
+import Setting from '~icons/ant-design/setting-filled'
+import Flower from '~icons/mdi/flower-outline'
+import ShoppingBasket from '~icons/fontisto/shopping-basket-add'
+import VipCrown from '~icons/ri/vip-crown-2-fill'
+import Message from '~icons/bx/bxs-message-detail'
+import Star from '~icons/ant-design/star-filled'
+import Bookmark from '~icons/bx/bxs-book-bookmark'
+import Help from '~icons/ic/round-help-center'
+import Info from '~icons/bx/bxs-info-square'
+import History from '~icons/lucide/history'
+import { ref } from 'vue'
+import IconButton from '../components/IconButton.vue'
+import { getInfo } from '../common/login'
+
+const avatarSrc = 'http://xc.hfut.edu.cn/_upload/article/images/66/ac/6bd138114bbda30d0bbf50ee570c/b083c0f7-b494-4615-a9a5-78967661c494.jpg'
+const name = ref('青天白鹭')
+const vip = ref('VIP')
+const level = ref('LV1')
+
+getInfo(localStorage.getItem('token')!).then(res => {
+  name.value = res.data.data.name
+})
+</script>
+
 <template>
-  me
+  <div class="flex items-center mt-10 ml-4">
+    <NAvatar object-fit="cover" :src="avatarSrc" :size="72" round></NAvatar>
+    <div class="flex flex-col flex-grow">
+      <div class="text-2xl">{{ name }}</div>
+      <div class="flex">
+        <NTag type="warning">{{ vip }}</NTag>
+        <NTag type="primary">{{ level }}</NTag>
+      </div>
+    </div>
+    <NButton circle class="mr-4">
+      <Setting class="text-2xl" />
+    </NButton>
+  </div>
+  <div class="grid grid-cols-3 justify-items-center mt-2">
+    <IconButton>
+      <template #icon>
+        <Flower class="icon-size text-red-500" />
+      </template>小红花
+    </IconButton>
+    <IconButton>
+      <template #icon>
+        <ShoppingBasket class="icon-size text-yellow-500" />
+      </template>积分商城
+    </IconButton>
+    <IconButton>
+      <template #icon>
+        <VipCrown class="icon-size text-yellow-400" />
+      </template>会员中心
+    </IconButton>
+    <IconButton>
+      <template #icon>
+        <Message class="icon-size text-blue-400" />
+      </template>我的消息
+    </IconButton>
+    <IconButton>
+      <template #icon>
+        <History class="icon-size text-purple-400" />
+      </template>我的足迹
+    </IconButton>
+    <IconButton>
+      <template #icon>
+        <Star class="icon-size text-pink-400" />
+      </template>我的收藏
+    </IconButton>
+    <IconButton>
+      <template #icon>
+        <Bookmark class="icon-size text-green-400" />
+      </template>我的课程
+    </IconButton>
+    <IconButton>
+      <template #icon>
+        <Help class="icon-size text-yellow-300" />
+      </template>使用帮助
+    </IconButton>
+    <IconButton>
+      <template #icon>
+        <Info class="icon-size text-blue-300" />
+      </template>关于
+    </IconButton>
+  </div>
 </template>
+
+<style scoped>
+.icon-size {
+  width: 32px;
+  height: 32px;
+}
+</style>

@@ -1,18 +1,13 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { NInput } from 'naive-ui'
-// @ts-ignore
 import Search from '~icons/bi/search'
-// @ts-ignore
 import Newspaper from '~icons/ri/newspaper-line'
-// @ts-ignore
 import Windmill from '~icons/tabler/windmill'
-// @ts-ignore
 import GolfCourse from '~icons/ic/baseline-golf-course'
-// @ts-ignore
 import DynamicFeed from '~icons/ic/baseline-dynamic-feed'
 
-import IconItem from '../components/IconItem.vue'
+import IconButton from '../components/IconButton.vue'
 
 const isSearch = ref(false)
 const inputSearch = ref<typeof NInput | null>(null)
@@ -47,40 +42,49 @@ const news = [
       </NInput>
       <NButton v-show="isSearch">取消</NButton>
     </NInputGroup>
-    <NCarousel autoplay class="pt-11">
+    <NCarousel autoplay class="pt-12">
       <img v-for="(src, index) in carouselImages" :key="index" class="carousel-img" :src="src" />
     </NCarousel>
     <div class="mt-1 flex justify-center">
-      <IconItem class="bg-blue-500">
+      <IconButton class="bg-blue-500 text-white">
         <template #icon>
-          <Newspaper class="icon" />
+          <Newspaper class="icon-size" />
         </template>
         新闻资讯
-      </IconItem>
-      <IconItem class="bg-red-400">
+      </IconButton>
+      <IconButton class="bg-red-400 text-white">
         <template #icon>
-          <Windmill class="icon" />
+          <Windmill class="icon-size" />
         </template>
         活动中心
-      </IconItem>
-      <IconItem class="bg-green-400">
+      </IconButton>
+      <IconButton class="bg-green-400 text-white">
         <template #icon>
-          <GolfCourse class="icon" />
+          <GolfCourse class="icon-size" />
         </template>
         最新课程
-      </IconItem>
-      <IconItem class="bg-yellow-400">
+      </IconButton>
+      <IconButton class="bg-yellow-400 text-white">
         <template #icon>
-          <DynamicFeed class="icon" />
+          <DynamicFeed class="icon-size" />
         </template>
         社区动态
-      </IconItem>
+      </IconButton>
     </div>
-    <NH6 class="my-0 pb-1 flex justify-between" prefix="bar">
+    <NH6 class="my-0 pb-1 flex justify-between items-center" prefix="bar">
       <span>推荐阅读</span>
-      <NText type="primary">>></NText>
+      <NButton ghost type="primary" :bordered="false">>></NButton>
     </NH6>
-    <NEllipsis v-for="(_news, index) in news" :key="index" class="pt-1" :tooltip="false">{{ _news }}</NEllipsis>
+    <div class="flex flex-col">
+      <NEllipsis
+        v-for="(_news, index) in news"
+        :key="index"
+        class="pt-1"
+        :tooltip="false"
+      >
+        {{ _news }}
+      </NEllipsis>
+    </div>
   </div>
 </template>
 
@@ -91,7 +95,7 @@ const news = [
   border-radius: 12px;
 }
 
-.icon {
+.icon-size {
   width: 24px;
   height: 24px;
 }

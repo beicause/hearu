@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { GlobalThemeOverrides } from 'naive-ui'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 const theme: GlobalThemeOverrides = {
@@ -10,15 +11,21 @@ const theme: GlobalThemeOverrides = {
   }
 }
 
-const isLogin = true
+const isLogin = ref(false)
 const router = useRouter()
 
-if (isLogin) {
-  router.replace('/nav/main')
-}
-else {
-  router.replace('/login')
-}
+if (localStorage.getItem('token'))
+  isLogin.value = true
+
+watch(isLogin, (login) => {
+  if (login) {
+    router.replace('/nav/main')
+  }
+  else {
+    router.replace('/login')
+  }
+})
+
 </script>
 
 <template>
