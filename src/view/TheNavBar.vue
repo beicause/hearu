@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
+// @ts-ignore
 import Home from '~icons/fa-solid/home'
+// @ts-ignore
 import Shop from '~icons/teenyicons/shop-solid'
+// @ts-ignore
 import Planet from '~icons/ion/planet'
+// @ts-ignore
 import Person from '~icons/bi/person-circle'
+// @ts-ignore
 import Camera from '~icons/bi/camera-fill'
 import IconDiv from '../components/IconDiv.vue'
 import { h, ref } from 'vue'

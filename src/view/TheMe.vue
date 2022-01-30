@@ -1,25 +1,36 @@
 <script setup lang="ts">
+// @ts-ignore
 import Setting from '~icons/ant-design/setting-filled'
+// @ts-ignore
 import Flower from '~icons/mdi/flower-outline'
+// @ts-ignore
 import ShoppingBasket from '~icons/fontisto/shopping-basket-add'
+// @ts-ignore
 import VipCrown from '~icons/ri/vip-crown-2-fill'
+// @ts-ignore
 import Message from '~icons/bx/bxs-message-detail'
+// @ts-ignore
 import Star from '~icons/ant-design/star-filled'
+// @ts-ignore
 import Bookmark from '~icons/bx/bxs-book-bookmark'
+// @ts-ignore
 import Help from '~icons/ic/round-help-center'
+// @ts-ignore
 import Info from '~icons/bx/bxs-info-square'
+// @ts-ignore
 import History from '~icons/lucide/history'
 import { ref } from 'vue'
 import IconButton from '../components/IconButton.vue'
 import { getInfo } from '../common/login'
 
-const avatarSrc = 'http://xc.hfut.edu.cn/_upload/article/images/66/ac/6bd138114bbda30d0bbf50ee570c/b083c0f7-b494-4615-a9a5-78967661c494.jpg'
+const avatarSrc = ref('http://xc.hfut.edu.cn/_upload/article/images/66/ac/6bd138114bbda30d0bbf50ee570c/b083c0f7-b494-4615-a9a5-78967661c494.jpg')
 const name = ref('青天白鹭')
 const vip = ref('VIP')
 const level = ref('LV1')
 
 getInfo(localStorage.getItem('token')!).then(res => {
   name.value = res.data.data.name
+  avatarSrc.value=res.data.data.avatar
 })
 </script>
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @ts-ignore
 import ChevronDown from '~icons/akar-icons/chevron-down'
 import { useRouter } from 'vue-router'
 import { hash, login, register } from '../common/login'

@@ -1,10 +1,15 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { NInput } from 'naive-ui'
+// @ts-ignore
 import Search from '~icons/bi/search'
+// @ts-ignore
 import Newspaper from '~icons/ri/newspaper-line'
+// @ts-ignore
 import Windmill from '~icons/tabler/windmill'
+// @ts-ignore
 import GolfCourse from '~icons/ic/baseline-golf-course'
+// @ts-ignore
 import DynamicFeed from '~icons/ic/baseline-dynamic-feed'
 
 import IconButton from '../components/IconButton.vue'
