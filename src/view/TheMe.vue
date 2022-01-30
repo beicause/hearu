@@ -23,8 +23,8 @@ import { ref } from 'vue'
 import IconButton from '../components/IconButton.vue'
 import { getInfo } from '../common/login'
 
-const avatarSrc = ref('http://xc.hfut.edu.cn/_upload/article/images/66/ac/6bd138114bbda30d0bbf50ee570c/b083c0f7-b494-4615-a9a5-78967661c494.jpg')
-const name = ref('青天白鹭')
+const avatarSrc = ref('')
+const name = ref('')
 const vip = ref('VIP')
 const level = ref('LV1')
 

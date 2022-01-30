@@ -14,17 +14,19 @@ const theme: GlobalThemeOverrides = {
 const isLogin = ref(false)
 const router = useRouter()
 
-if (localStorage.getItem('token'))
-  isLogin.value = true
-
 watch(isLogin, (login) => {
   if (login) {
     router.replace('/nav/main')
+    console.log('1')
+
   }
   else {
     router.replace('/login')
   }
 })
+
+if (localStorage.getItem('token'))
+  isLogin.value = true
 
 </script>
 
