@@ -21,17 +21,23 @@ import Info from '~icons/bx/bxs-info-square'
 import History from '~icons/lucide/history'
 import { ref } from 'vue'
 import IconButton from '../components/IconButton.vue'
-import { getInfo } from '../common/login'
+import { ensureLogin, getInfo } from '../common/api_login'
+import { useRouter } from 'vue-router'
 
+ensureLogin()
+
+const router = useRouter()
 const avatarSrc = ref('')
 const name = ref('')
 const vip = ref('VIP')
 const level = ref('LV1')
 
-getInfo(localStorage.getItem('token')!).then(res => {
+getInfo().then(res => {
   name.value = res.data.data.name
-  avatarSrc.value=res.data.data.avatar
+  avatarSrc.value = res.data.data.avatar
 })
+
+
 </script>
 
 <template>
@@ -44,7 +50,7 @@ getInfo(localStorage.getItem('token')!).then(res => {
         <NTag type="primary">{{ level }}</NTag>
       </div>
     </div>
-    <NButton circle class="mr-4">
+    <NButton circle class="mr-4" @click="router.push('/setting')">
       <Setting class="text-2xl" />
     </NButton>
   </div>

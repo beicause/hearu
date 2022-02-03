@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { GlobalThemeOverrides } from 'naive-ui'
+import { GlobalThemeOverrides,zhCN,dateZhCN } from 'naive-ui'
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-
+import { themeObject } from './common/state'
 const theme: GlobalThemeOverrides = {
   common: {
     primaryColor: '#2196f3',
@@ -17,8 +17,6 @@ const router = useRouter()
 watch(isLogin, (login) => {
   if (login) {
     router.replace('/nav/main')
-    console.log('1')
-
   }
   else {
     router.replace('/login')
@@ -31,10 +29,10 @@ if (localStorage.getItem('token'))
 </script>
 
 <template>
-  <NConfigProvider :theme-overrides="theme">
+  <NConfigProvider :theme="themeObject" :theme-overrides="theme" :locale="zhCN" :date-locale="dateZhCN">
     <NMessageProvider>
       <NDialogProvider>
-        <router-view></router-view>
+        <NLayout position="absolute"><router-view></router-view></NLayout>
       </NDialogProvider>
     </NMessageProvider>
   </NConfigProvider>

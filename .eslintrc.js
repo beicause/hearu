@@ -24,6 +24,8 @@ module.exports = defineConfig({
     'vue/html-self-closing': 'off',
     '@typescript-eslint/ban-ts-comment':'off',
     "no-undef":'warn',
+    '@typescript-eslint/no-empty-function':'off',
+    '@typescript-eslint/no-empty-interface':'off',
     'vue/singleline-html-element-content-newline':'off',
     'vue/max-attributes-per-line': ['warn', {
       'singleline': { 'max': 4 }

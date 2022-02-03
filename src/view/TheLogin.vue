@@ -2,7 +2,7 @@
 // @ts-ignore
 import ChevronDown from '~icons/akar-icons/chevron-down'
 import { useRouter } from 'vue-router'
-import { hash, login, register } from '../common/login'
+import { hash, login, register } from '../common/api_login'
 import { ref } from 'vue'
 import { useMessage } from 'naive-ui'
 
@@ -37,9 +37,9 @@ function loginOrRegister() {
 
 <template>
   <div class="mx-2 mt-15">
-    <NH1 class="flex justify-between">
+    <NH1 class="flex justify-between items-center">
       欢迎使用HearU
-      <NButton text type="primary">>企业入口</NButton>
+      <NButton :bordered="false" type="primary" ghost>>企业入口</NButton>
     </NH1>
     <NInput v-model:value="telephone" placeholder="请输入手机号" size="large" clearable>
       <template #prefix>
@@ -86,11 +86,12 @@ function loginOrRegister() {
     >
       {{ isRegister ? '注册' : '登录' }}
     </NButton>
-    <div class="flex justify-between mt-2">
-      <NButton text>忘记密码</NButton>
+    <div class="flex justify-between">
+      <NButton :bordered="false">忘记密码</NButton>
       <NButton
-        text
+        :bordered="false"
         type="primary"
+        ghost
         @click="isRegister = !isRegister"
       >
         {{ isRegister ? '返回登录' : '注册账号' }}
@@ -111,7 +112,7 @@ function loginOrRegister() {
   transition: transform 0.8s ease;
 }
 
-.slide-leave-from {
+/* .slide-leave-from {
   opacity: 1;
 }
 .slide-leave-to {
@@ -119,5 +120,5 @@ function loginOrRegister() {
 }
 .slide-leave-active {
   transition: opacity 0.5s ease;
-}
+} */
 </style>
