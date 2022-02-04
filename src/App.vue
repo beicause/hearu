@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GlobalThemeOverrides,zhCN,dateZhCN } from 'naive-ui'
+import { GlobalThemeOverrides, zhCN, dateZhCN } from 'naive-ui'
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { themeObject } from './common/state'
@@ -21,7 +21,7 @@ watch(isLogin, (login) => {
   else {
     router.replace('/login')
   }
-})
+}, { immediate: true })
 
 if (localStorage.getItem('token'))
   isLogin.value = true
@@ -29,10 +29,17 @@ if (localStorage.getItem('token'))
 </script>
 
 <template>
-  <NConfigProvider :theme="themeObject" :theme-overrides="theme" :locale="zhCN" :date-locale="dateZhCN">
+  <NConfigProvider
+    :theme="themeObject"
+    :theme-overrides="theme"
+    :locale="zhCN"
+    :date-locale="dateZhCN"
+  >
     <NMessageProvider>
       <NDialogProvider>
-        <NLayout position="absolute"><router-view></router-view></NLayout>
+        <NLayout position="absolute">
+          <router-view></router-view>
+        </NLayout>
       </NDialogProvider>
     </NMessageProvider>
   </NConfigProvider>
