@@ -10,8 +10,7 @@ const router: RouterOptions = {
         { path: 'shop', name: 'shop', component: () => import('../view/TheShop.vue') },
         { path: 'translation', name: 'translation', component: () => import('../view/TheTranslation.vue') },
         {
-          path: 'community', name: 'community', component: () => import('../view/TheCommunity.vue'), children: [
-            { path: '', redirect: 'recommend' },
+          path: 'community', name: 'community',redirect:'/nav/community/recommend', component: () => import('../view/TheCommunity.vue'), children: [
             { path: 'job', component: () => import('../view/community/TheJob.vue') },
             { path: 'recommend', component: () => import('../view/community/TheRecommend.vue') },
             { path: 'community', component: () => import('../view/community/TheCommunity.vue') }

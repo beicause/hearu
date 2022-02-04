@@ -5,9 +5,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const tab = ref('recommend')
 
-watch(tab, v => {
+watch(tab,v => {
   router.push('/nav/community/' + v)
-}, { immediate: true })
+})
 </script>
 <template>
   <div class="flex justify-between items-center mx-4 mt-2">
