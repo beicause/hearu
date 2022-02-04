@@ -12,5 +12,10 @@ export default defineConfig({
     windicss(),
     icons(),
     component({ dts: false, resolvers: [resolvers.NaiveUiResolver()] })
-  ]
+  ],
+  base: './',
+  build: {
+    // for webview
+    cssTarget: 'chrome61'
+  }
 })
