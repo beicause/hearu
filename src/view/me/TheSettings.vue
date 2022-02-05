@@ -38,8 +38,8 @@ function clearCache() {
 }
 
 const items: { name: string, click: () => void }[] = [
-  { name: '编辑资料', click() { router.push('/edit_info') } },
   { name: '切换主题', click() { theme.value= theme.value==='dark'?'light':'dark' } },
+  { name: '编辑资料', click() { router.push('/edit_info') } },
   { name: '修改密码', click() { router.push('/change_password') } },
   { name: '隐私政策', click() { } },
   { name: '清除缓存', click: clearCache },

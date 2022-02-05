@@ -12,7 +12,7 @@ import GolfCourse from '~icons/ic/baseline-golf-course'
 // @ts-ignore
 import DynamicFeed from '~icons/ic/baseline-dynamic-feed'
 
-import IconButton from '../components/IconButton.vue'
+import IconButton from '../components/IconVertButton.vue'
 
 const isSearch = ref(false)
 const inputSearch = ref<typeof NInput | null>(null)

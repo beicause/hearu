@@ -15,9 +15,10 @@ const message = useMessage()
 function loginOrRegister() {
   if (isRegister.value && password.value != passwordConfirm.value)
     message.error('两次输入密码不一致')
+
   const _loginOrRegister = async () => {
     if (isRegister.value)
-     return await register({
+      return await register({
         name: telephone.value,
         telephone: telephone.value,
         password: hash(password.value),
@@ -25,12 +26,16 @@ function loginOrRegister() {
       })
     else return await login({ telephone: telephone.value, password: hash(password.value) })
   }
-  _loginOrRegister().then((res:any) => {
-    localStorage.setItem('token',res.data.data.token)
+  _loginOrRegister().then(res => {
+    if (res.data.code !== 0) {
+      message.error(res.data.msg)
+      return
+    }
+    localStorage.setItem('token', (res.data.data as { token: string }).token)
     router.replace({ name: 'main' })
   }
   ).catch(err => {
-    message.error(err||'出错了')
+    message.error(err )
   })
 }
 </script>

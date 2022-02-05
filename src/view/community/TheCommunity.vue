@@ -12,5 +12,5 @@ selected.value = options[0].value as string
 </script>
 
 <template>
-  <NSelect v-model:value="selected" class="px-2 mt-2" :options="options"></NSelect>
+  <NSelect v-model:value="selected" class="px-2 mt-1" :options="options"></NSelect>
 </template>

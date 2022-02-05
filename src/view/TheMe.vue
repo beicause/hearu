@@ -20,7 +20,7 @@ import Info from '~icons/bx/bxs-info-square'
 // @ts-ignore
 import History from '~icons/lucide/history'
 import { ref } from 'vue'
-import IconButton from '../components/IconButton.vue'
+import IconButton from '../components/IconVertButton.vue'
 import { ensureLogin, getInfo } from '../common/api_login'
 import { useRouter } from 'vue-router'
 

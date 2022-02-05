@@ -14,7 +14,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue"
-import IconDiv from "./IconDiv.vue"
+import IconDiv from "./IconVertDiv.vue"
 
 export default defineComponent({
   components: { IconDiv },

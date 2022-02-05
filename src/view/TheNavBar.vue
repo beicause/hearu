@@ -10,7 +10,7 @@ import Planet from '~icons/ion/planet'
 import Person from '~icons/bi/person-circle'
 // @ts-ignore
 import Camera from '~icons/bi/camera-fill'
-import IconDiv from '../components/IconDiv.vue'
+import IconDiv from '../components/IconVertDiv.vue'
 import { h, ref } from 'vue'
 import { NButton } from 'naive-ui'
 

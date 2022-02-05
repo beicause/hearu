@@ -10,7 +10,7 @@ watch(tab,v => {
 })
 </script>
 <template>
-  <div class="flex justify-between items-center mx-4 mt-2">
+  <div class="flex justify-between items-center left-4 right-4 fixed">
     <NTabs v-model:value="tab" size="large">
       <NTab name="recommend">推荐</NTab>
       <NTab name="community">社区</NTab>
@@ -18,5 +18,6 @@ watch(tab,v => {
     </NTabs>
     <NButton type="primary" ghost size="small" @click="router.push('/publish_topic')">写话题</NButton>
   </div>
+  <div class="h-11"></div>
   <router-view></router-view>
 </template>

@@ -2,10 +2,9 @@
 import { useMessage } from 'naive-ui'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { changePassword, ensureLogin, hash } from '../../common/api_login'
+import { changePassword, hash } from '../../common/api_login'
 import TitleBar from '../../components/TitleBar.vue'
 
-ensureLogin()
 const router = useRouter()
 const password = ref('')
 const passwordNew = ref('')
@@ -19,7 +18,7 @@ function _changePassword() {
     }
     else message.error(res.data.msg)
   }).catch(err => {
-    message.error(err || '出错了')
+    message.error(err )
   })
 }
 </script>

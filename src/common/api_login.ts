@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 
 export const baseURL = 'http://110.40.157.12:8002'
 export const axios = _axios.create({ baseURL })
-export const authorization = (token: string|null) => {
+export const authorization = (token: string | null) => {
   return { headers: { Authorization: 'Bearer ' + token } }
 }
 export function hash(s: string) {
@@ -14,8 +14,8 @@ export function hash(s: string) {
 
 interface Data { }
 export interface Response<T extends Data = Data> {
-  data: T,
-  msg: string,
+  data: T
+  msg: string
   code: number
 }
 export interface LoginData extends Data {
@@ -23,25 +23,25 @@ export interface LoginData extends Data {
 }
 
 export interface RegisterData extends LoginData {
-  name: string,
-  sex: string,
-  avatar: string,
-  signature: string,
-  birth: string,
-  id?: number,
+  name: string
+  sex: string
+  avatar: string
+  signature: string
+  birth: string
+  id?: number
 }
 export interface InfoData extends RegisterData {
-  id: number,
+  id: number
   age: number
 }
 
-type PromiseResponse<T = Data> = Promise<AxiosResponse<Response<T>>>
+export type PromiseResponse<T = Data> = Promise<AxiosResponse<Response<T>>>
 
 export async function register(data: RegisterData): PromiseResponse {
   return await axios.post('/user/register', data)
 }
 
-export async function login(data: LoginData): PromiseResponse {
+export async function login(data: LoginData): PromiseResponse<{ token: string }> {
   return await axios.post('/user/login', {}, { params: data })
 }
 
@@ -61,4 +61,22 @@ export function ensureLogin() {
   if (localStorage.getItem('token')) return
   useMessage().info('请先登录')
   useRouter().replace('/login')
+}
+
+export async function changeInfo(info: RegisterData & { id: number }, token = localStorage.getItem('token')): PromiseResponse {
+  const _info = Object.assign({}, info)
+  for (const k of Object.keys(_info)) {
+    if (![
+      'name',
+      'sex',
+      'avatar',
+      'signature',
+      'telephone',
+      'birth',
+      'id'
+    ].includes(k))
+      // @ts-ignore
+      _info[k] = undefined
+  }
+  return await axios.post('/user/change/info', _info, authorization(token))
 }
