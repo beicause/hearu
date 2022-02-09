@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { CommentData, getComment, getTopic, like, TopicData, unlike } from '../../common/api_topic'
+import { comment as publishComment, CommentData, getComment, getTopic, like, TopicData, unlike } from '../../common/api_topic'
 import { baseFileURL } from '../../common/api_upload'
 // @ts-ignore
 import LikeOutlined from '~icons/ant-design/like-outlined'
@@ -10,14 +10,27 @@ import LikeFilled from '~icons/ant-design/like-filled'
 import Comment from '~icons/fluent/comment-16-regular'
 // @ts-ignore
 import ForwardOutline from '~icons/typcn/arrow-forward-outline'
+import { InputInst, useMessage } from 'naive-ui'
+import { theme } from '../../common/state'
 
 const topics = ref([] as TopicData['data'])
+const currentCommentTopic = ref(null as TopicData['data'][0] | null)
+const currentCommentComment = ref(null as CommentData['data'][0] | null)
 const comments = ref([] as CommentData['data'])
 const commentDrawer = ref(false)
+const inputReply = ref<InputInst | null>(null)
+const commentContent = ref('')
+const message = useMessage()
 
-getTopic(1, 10).then(res => {
-  topics.value = res.data.data.data
-})
+function initTopics() {
+  getTopic(1, 10).then(res => {
+    res.data.code !== 0 && message.error(res.data.msg)
+    topics.value = res.data.data.data
+  }).catch(err => {
+    message.error(err)
+  })
+}
+initTopics()
 
 function extractImages(content: string) {
   if (content.startsWith('__IMG[') && content.indexOf(']IMG__') > 6) {
@@ -27,7 +40,13 @@ function extractImages(content: string) {
   return { content }
 }
 
-function likeClick(topic: TopicData['data'][0]) {
+function extractTime(time: string) {
+  const date = new Date()
+  if (time.startsWith('' + date.getFullYear())) return time.substring(5)
+  else return time
+}
+
+function likeTopicClick(topic: TopicData['data'][0]) {
   const get = async () => {
     return topic.like ? await unlike(topic.topicId) : await like(topic.topicId)
   }
@@ -40,10 +59,44 @@ function likeClick(topic: TopicData['data'][0]) {
   })
 }
 
-function commentClick(topic: TopicData['data'][0]) {
+function commentTopicClick(topic: TopicData['data'][0]) {
   commentDrawer.value = true
+  currentCommentTopic.value = topic
   getComment(topic.topicId, 1, 10).then(res => {
     comments.value = res.data.data.data
+  })
+}
+
+function likeCommentClick(comment: CommentData['data'][0]) {
+  const get = async () => {
+    return comment.like ? await unlike(comment.commentId, 'comment') : await like(comment.commentId, 'comment')
+  }
+  get().then(res => {
+    if (res.data.code === 0) {
+      comment.like = !comment.like
+      if (comment.like) comment.likeCount++
+      else comment.likeCount--
+    }
+  })
+}
+
+function commentCommentClick(comment: CommentData['data'][0]) {
+  currentCommentComment.value = comment
+  inputReply.value?.focus()
+}
+
+function commentClick() {
+  const type = currentCommentComment.value ? 'comment' : currentCommentTopic.value ? 'topic' : null
+  if (type && commentContent.value) publishComment(type === 'comment' ? currentCommentComment.value!.commentId : currentCommentTopic.value!.topicId, commentContent.value, type).then(res => {
+    if (res.data.code === 0) {
+      inputReply.value?.blur()
+      commentTopicClick(currentCommentTopic.value!)
+      initTopics()
+      message.success('成功')
+    }
+    else message.error(res.data.msg)
+  }).catch(err => {
+    message.error(err)
   })
 }
 </script>
@@ -55,10 +108,13 @@ function commentClick(topic: TopicData['data'][0]) {
     :native-scrollbar="false"
   >
     <div v-for="topic in topics" :key="topic.topicId" class="px-2 mt-2">
-      <div class="flex justify-between">
+      <div class="flex justify-between items-center">
         <div class="flex">
-          <NAvatar :src="topic.author.avatar"></NAvatar>
-          <div>{{ topic.author.name }}</div>
+          <NAvatar :size="50" :src="topic.author.avatar"></NAvatar>
+          <div class="ml-1">
+            <div class="text-lg font-bold">{{ topic.author.name }}</div>
+            <div>{{ topic.author.signature }}</div>
+          </div>
         </div>
         <NButton size="small" type="primary" ghost>关注</NButton>
       </div>
@@ -73,29 +129,73 @@ function commentClick(topic: TopicData['data'][0]) {
           :src="baseFileURL + img"
         />
       </div>
-      <div class="flex justify-end">
-        <NButton size="large" :bordered="false" @click="likeClick(topic)">
-          <template #icon>
-            <LikeFilled v-if="topic.like" class="text-pink-500" />
-            <LikeOutlined v-else />
-          </template>
-          {{ topic.likeCount }}
-        </NButton>
-        <NButton size="large" :bordered="false" @click="commentClick(topic)">
-          <template #icon>
-            <Comment />
-          </template>
-          {{ topic.commentCount }}
-        </NButton>
-        <NButton size="large" :bordered="false">
-          <ForwardOutline />
-        </NButton>
+      <div class="flex justify-between items-center">
+        <div>{{ topic.createTime }}</div>
+        <div>
+          <NButton size="large" :bordered="false" @click="likeTopicClick(topic)">
+            <template #icon>
+              <LikeFilled v-if="topic.like" class="text-pink-500" />
+              <LikeOutlined v-else />
+            </template>
+            {{ topic.likeCount }}
+          </NButton>
+          <NButton size="large" :bordered="false" @click="commentTopicClick(topic)">
+            <template #icon>
+              <Comment />
+            </template>
+            {{ topic.commentCount }}
+          </NButton>
+          <NButton size="large" :bordered="false">
+            <ForwardOutline />
+          </NButton>
+        </div>
       </div>
     </div>
   </NLayoutContent>
-  <NDrawer v-model:show="commentDrawer" placement="bottom" height="60vh">
+  <NDrawer v-model:show="commentDrawer" placement="bottom" height="60vh" :auto-focus="false">
     <div v-for="comment in comments" :key="comment.commentId" class="mt-1 mx-2">
-      <div>{{ comment.author.name }}：{{ comment.content }}</div>
+      <div class="flex justify-between">
+        <div class="font-bold">{{ comment.author.name }}</div>
+        <div>{{ extractTime(comment.createTime) }}</div>
+      </div>
+      <div class="flex justify-between items-center">
+        <div>{{ comment.content }}</div>
+        <div>
+          <NButton :bordered="false" @click="likeCommentClick(comment)">
+            <template #icon>
+              <LikeFilled v-if="comment.like" class="text-pink-500" />
+              <LikeOutlined v-else />
+            </template>
+            {{ comment.likeCount }}
+          </NButton>
+          <NButton :bordered="false" @click="commentCommentClick(comment)">
+            <template #icon>
+              <Comment />
+            </template>
+            {{ comment.commentCount }}
+          </NButton>
+        </div>
+      </div>
+
+      <div v-if="comment.comments.length > 0" class="p-2" :class="{'bg-gray-100':theme==='light','bg-dark-800':theme==='dark'}">
+        <div
+          v-for="com in comment.comments"
+          :key="com.commentId"
+        >
+          {{ com.author.name }}：{{ com.content }}
+        </div>
+      </div>
     </div>
+
+    <NInputGroup class="absolute bottom-4 px-2">
+      <NInput
+        ref="inputReply"
+        v-model:value="commentContent"
+        :placeholder="'回复' + (currentCommentComment ? `${currentCommentComment.author.name}的评论` : currentCommentTopic ? `${currentCommentTopic.author.name}的话题` : '')"
+        @keyup.enter="commentClick"
+        @blur="currentCommentComment = null"
+      ></NInput>
+      <NButton :focusable="false" @click="commentClick">发布</NButton>
+    </NInputGroup>
   </NDrawer>
 </template>

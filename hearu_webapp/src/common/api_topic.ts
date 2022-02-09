@@ -4,15 +4,15 @@ export async function publish(title: string, content: string, token = localStora
   return await axios.post('/topic/publish', { title, content }, authorization(token))
 }
 
-export async function like(topicId: number, token = localStorage.getItem('token')): PromiseResponse {
-  return await axios.get('/topic/like/' + topicId, authorization(token))
+export async function like(id: number, type: 'topic' | 'comment' = 'topic', token = localStorage.getItem('token')): PromiseResponse {
+  return await axios.get(`/topic/${type==='comment'?'comment/':''}like/${id}`, authorization(token))
 }
 
-export async function unlike(topicId: number, token = localStorage.getItem('token')): PromiseResponse {
-  return await axios.get('/topic/unlike' + topicId, authorization(token))
+export async function unlike(id: number, type: 'topic' | 'comment' = 'topic', token = localStorage.getItem('token')): PromiseResponse {
+  return await axios.get(`/topic/${type==='comment'?'comment/':''}unlike/${id}`, authorization(token))
 }
-export async function comment(topicId: number, content: string, token = localStorage.getItem('token')): PromiseResponse {
-  return await axios.post('/topic/comment/' + topicId, {}, {
+export async function comment(id: number, content: string, type: 'topic' | 'comment' = 'topic', token = localStorage.getItem('token')): PromiseResponse {
+  return await axios.post('/topic/comment/' + (type === 'topic' ? '' : 'comment/') + id, {}, {
     ...authorization(token), params: { content }
   })
 }
@@ -62,8 +62,8 @@ export interface CommentData {
     },
     likeCount: number,
     commentCount: number,
-    like: true,
-    mine: true,
+    like: boolean,
+    mine: boolean,
     comments:
     {
       commentId: number,

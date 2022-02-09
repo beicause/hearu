@@ -23,6 +23,7 @@ import { ref } from 'vue'
 import IconButton from '../components/IconVertButton.vue'
 import { ensureLogin, getInfo } from '../common/api_login'
 import { useRouter } from 'vue-router'
+import { useMessage } from 'naive-ui'
 
 ensureLogin()
 
@@ -31,10 +32,14 @@ const avatarSrc = ref('')
 const name = ref('')
 const vip = ref('VIP')
 const level = ref('LV1')
+const message = useMessage()
 
 getInfo().then(res => {
+  res.data.code !== 0 && message.error(res.data.msg)
   name.value = res.data.data.name
   avatarSrc.value = res.data.data.avatar
+}).catch(err => {
+  message.error(err)
 })
 
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { NInput } from 'naive-ui'
+import { InputInst } from 'naive-ui'
 // @ts-ignore
 import Search from '~icons/bi/search'
 // @ts-ignore
@@ -15,7 +15,7 @@ import DynamicFeed from '~icons/ic/baseline-dynamic-feed'
 import IconButton from '../components/IconVertButton.vue'
 
 const isSearch = ref(false)
-const inputSearch = ref<typeof NInput | null>(null)
+const inputSearch = ref<InputInst | null>(null)
 const carouselImages = [
   'http://www.cndcm.cn/uploadfile/2021/0308/20210308095808395.jpg',
   'http://www.cndcm.cn/uploadfile/2018/0428/20180428061724645.jpg',
@@ -37,7 +37,7 @@ const news = [
       <NInput
         ref="inputSearch"
         placeholder="零基础学手语"
-        @keyup="inputSearch && inputSearch.blur()"
+        @keyup.enter="inputSearch && inputSearch.blur()"
         @blur="isSearch = false"
         @focus="isSearch = true"
       >

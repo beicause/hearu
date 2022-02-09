@@ -12,11 +12,12 @@ import Person from '~icons/bi/person-circle'
 import Camera from '~icons/bi/camera-fill'
 import IconDiv from '../components/IconVertDiv.vue'
 import { h, ref } from 'vue'
-import { NButton } from 'naive-ui'
+import { NButton, useThemeVars } from 'naive-ui'
 
 const router = useRouter()
 const route = useRoute()
 const activeNav = ref(route.name)
+const theme=useThemeVars()
 const renderBar = (text: string, icon: any, nav: string) =>
   h(NButton, {
     class: 'h-10',
@@ -28,7 +29,7 @@ const renderBar = (text: string, icon: any, nav: string) =>
 
 <template>
   <router-view></router-view>
-  <div class="absolute flex justify-around items-center bottom-0 left-0 right-0">
+  <div class="absolute flex justify-around items-center bottom-0 left-0 right-0" :style="{background:theme.bodyColor}">
     <component :is="renderBar('首页', Home, 'main')"></component>
     <component :is="renderBar('商城', Shop, 'shop')"></component>
     <NButton class="h-15 w-15" circle type="primary" @click="router.push('/nav/translation')">
