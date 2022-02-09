@@ -33,9 +33,9 @@ function initTopics() {
 initTopics()
 
 function extractImages(content: string) {
-  if (content.startsWith('__IMG[') && content.indexOf(']IMG__') > 6) {
+  if (content.startsWith('__IMG[') && content.indexOf(']IMG__') >= 6) {
     const images = JSON.parse(content.substring(5, content.indexOf(']IMG__') + 1)) as string[]
-    if (Array.isArray(images) && typeof images[0] === 'string') return { content: content.substring(content.indexOf(']IMG__') + 6), images }
+    if (Array.isArray(images) && (images.length===0 || typeof images[0] === 'string')) return { content: content.substring(content.indexOf(']IMG__') + 6), images }
   }
   return { content }
 }
