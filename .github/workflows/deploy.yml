@@ -28,5 +28,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
           branch: deploy # The branch the action should deploy to.
-          folder: dist # The folder the action should deploy.
+          folder: hearu_webapp/dist # The folder the action should deploy.
 

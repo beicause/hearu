@@ -28,7 +28,7 @@ jobs:
         run: cd hearu_webapp && pnpm i
 
       - name: Run lint
-        run: pnpm lint && pnpm check
+        run:  cd hearu_webapp && pnpm lint && pnpm check
 
       - name: Build
-        run: pnpm build
+        run:  cd hearu_webapp && pnpm build
