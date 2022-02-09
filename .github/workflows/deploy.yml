@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy Web
 on:
   push:
     branches:
@@ -22,7 +22,7 @@ jobs:
           cache: "pnpm"
           registry-url: https://registry.npmmirror.com/
       - name: Install and Build 🔧
-        run: pnpm i && pnpm build
+        run: cd hearu_webapp && pnpm i && pnpm build
 
       - name: Deploy🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7

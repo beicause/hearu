@@ -1,4 +1,4 @@
-name: Test
+name: Test Web
 on:
   push:
   pull_request:
@@ -25,7 +25,7 @@ jobs:
           registry-url: https://registry.npmmirror.com/
 
       - name: Install dependencies
-        run: pnpm i
+        run: cd hearu_webapp && pnpm i
 
       - name: Run lint
         run: pnpm lint && pnpm check
