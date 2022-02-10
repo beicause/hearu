@@ -12,23 +12,27 @@ const token = localStorage.getItem('token')
 const title = ref(localStorage.getItem('publish_topic_title') || '')
 const content = ref(localStorage.getItem('publish_topic_content') || '')
 const message = useMessage()
-const images = ref([] as UploadFileInfo[])
+const sources = ref([] as UploadFileInfo[])
 
 watchEffect(() => {
   localStorage.setItem('publish_topic_title', title.value)
   localStorage.setItem('publish_topic_content', content.value)
 })
 function updateFile(files: UploadFileInfo[]) {
-  images.value = files
+  sources.value = files
 }
 function uploadFinish(res: { file: UploadFileInfo, event?: any }) {
   const response = JSON.parse(res.event.target.responseText)
   res.file.url = response.data
+  console.log(res.file)
   return undefined
 }
 
 function publishTopic() {
-  publish(title.value, '__IMG' + JSON.stringify(images.value.map(img=>img.url)) + 'IMG__' + content.value).then(res => {
+  publish(title.value, '__SRC' + JSON.stringify(sources.value.map(src => {
+    const res = { url: src.url,type:src.type }
+    return res
+  })) + 'SRC__' + content.value).then(res => {
     if (res.data.code === 0) {
       message.success(res.data.msg)
       router.back()
@@ -70,8 +74,9 @@ function publishTopic() {
     list-type="image-card"
     :action="uploadURL"
     :headers="{ ...authorization(token).headers }"
-    accept="image/*"
-    :file-list="images"
+    accept="image/*, video/*"
+    :file-list="sources"
+    multiple
     @update-file-list="updateFile"
     @finish="uploadFinish"
   >

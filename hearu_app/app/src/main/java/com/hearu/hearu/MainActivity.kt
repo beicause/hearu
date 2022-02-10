@@ -1,12 +1,14 @@
 package com.hearu.hearu
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.webkit.*
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.webkit.WebViewAssetLoader
 import java.util.*
 
@@ -14,6 +16,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private var time = 0L
+    private var filePathCallback: ValueCallback<Array<Uri>>? = null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +27,9 @@ class MainActivity : AppCompatActivity() {
             "/assets/",
             WebViewAssetLoader.AssetsPathHandler(this)
         ).build()
+        val launchChooser = registerForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) {
+            filePathCallback?.onReceiveValue(it?.toTypedArray())
+        }
         findViewById<WebView>(R.id.wv_main).apply {
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
@@ -39,6 +45,16 @@ class MainActivity : AppCompatActivity() {
             webChromeClient = object : WebChromeClient() {
                 override fun onConsoleMessage(message: String, lineNumber: Int, sourceID: String) {
                     Log.d("Hearu", "$message -- From line $lineNumber of $sourceID")
+                }
+
+                override fun onShowFileChooser(
+                    webView: WebView?,
+                    filePathCallback: ValueCallback<Array<Uri>>?,
+                    fileChooserParams: FileChooserParams?
+                ): Boolean {
+                    this@MainActivity.filePathCallback = filePathCallback
+                    launchChooser.launch(fileChooserParams?.acceptTypes)
+                    return true
                 }
             }
             addJavascriptInterface(JavaScriptInterface(this@MainActivity), "Android")

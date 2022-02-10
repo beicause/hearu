@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { comment as publishComment, CommentData, getComment, getTopic, like, TopicData, unlike } from '../../common/api_topic'
 import { baseFileURL } from '../../common/api_upload'
 // @ts-ignore
@@ -32,12 +32,14 @@ function initTopics() {
 }
 initTopics()
 
-function extractImages(content: string) {
-  if (content.startsWith('__IMG[') && content.indexOf(']IMG__') >= 6) {
-    const images = JSON.parse(content.substring(5, content.indexOf(']IMG__') + 1)) as string[]
-    if (Array.isArray(images) && (images.length===0 || typeof images[0] === 'string')) return { content: content.substring(content.indexOf(']IMG__') + 6), images }
+function extractSrc(content: string) {
+  if (content.startsWith('__SRC[') && content.indexOf(']SRC__') >= 6) {
+    const sources = JSON.parse(content.substring(5, content.indexOf(']SRC__') + 1)) as { url: string, type: string }[]
+    console.log(sources)
+
+    if (Array.isArray(sources) && (sources.length === 0 || typeof sources[0] === 'object')) return { content: content.substring(content.indexOf(']SRC__') + 6), sources }
   }
-  return { content }
+  return { content, sources: [] }
 }
 
 function extractTime(time: string) {
@@ -99,6 +101,7 @@ function commentClick() {
     message.error(err)
   })
 }
+
 </script>
 
 <template>
@@ -119,15 +122,21 @@ function commentClick() {
         <NButton size="small" type="primary" ghost>关注</NButton>
       </div>
       <div class="text-lg">{{ topic.title }}</div>
-      <div>{{ extractImages(topic.content).content }}</div>
+      <div>{{ extractSrc(topic.content).content }}</div>
       <div>
         <NImage
-          v-for="img in extractImages(topic.content).images"
-          :key="img"
+          v-for="src in extractSrc(topic.content).sources.filter(s => s.type.startsWith('image/'))"
+          :key="src.url"
           object-fit="contain"
           style="width: 30vw;"
-          :src="baseFileURL + img"
+          :src="baseFileURL + src.url"
         />
+        <video
+          v-for="src in extractSrc(topic.content).sources.filter(s => s.type.startsWith('video/'))"
+          :key="src.url"
+          :src="baseFileURL + src.url"
+          controls
+        ></video>
       </div>
       <div class="flex justify-between items-center">
         <div>{{ topic.createTime }}</div>
@@ -177,7 +186,11 @@ function commentClick() {
         </div>
       </div>
 
-      <div v-if="comment.comments.length > 0" class="p-2" :class="{'bg-gray-100':theme==='light','bg-dark-800':theme==='dark'}">
+      <div
+        v-if="comment.comments.length > 0"
+        class="p-2"
+        :class="{ 'bg-gray-100': theme === 'light', 'bg-dark-800': theme === 'dark' }"
+      >
         <div
           v-for="com in comment.comments"
           :key="com.commentId"

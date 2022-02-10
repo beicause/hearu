@@ -4,7 +4,7 @@
   "private":true,
   "scripts": {
     "prepare": "husky install",
-    "build-web":"cd hearu_webapp && pnpm build",
+    "build-web":"cd hearu_webapp && pnpm build && pnpm copy",
     "copy":"node scripts/copy.js"
   },
   "repository": {
