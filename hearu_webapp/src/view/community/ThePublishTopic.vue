@@ -28,17 +28,21 @@ function uploadFinish(res: { file: UploadFileInfo, event?: any }) {
 }
 
 function publishTopic() {
-  publish(title.value, '__SRC' + JSON.stringify(sources.value.map(src => {
-    const res = { url: src.url,type:src.type }
-    return res
-  })) + 'SRC__' + content.value).then(res => {
-    if (res.data.code === 0) {
-      message.success(res.data.msg)
-      router.back()
-    } else message.error(res.data.msg)
-  }).catch(err => {
-    message.error(err)
-  })
+  if (title.value || content.value)
+    publish(title.value, '__SRC' + JSON.stringify(sources.value.map(src => {
+      const res = { url: src.url, type: src.type }
+      return res
+    })) + 'SRC__' + content.value).then(res => {
+      if (res.data.code === 0) {
+        message.success(res.data.msg)
+        router.back()
+      } else message.error(res.data.msg)
+    }).catch(err => {
+      message.error(err)
+    })
+  else {
+    message.warning('写点什么吧')
+  }
 }
 </script>
 <template>
