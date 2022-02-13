@@ -79,6 +79,6 @@ function publishTopic() {
     @update-file-list="updateFile"
     @finish="uploadFinish"
   >
-    选择图片
+    图片/视频
   </NUpload>
 </template>
