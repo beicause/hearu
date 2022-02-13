@@ -29,7 +29,6 @@ getInfo().then(res => {
 })
 
 function uploadFinish(res: { file: UploadFileInfo, event?: any }) {
-  console.log(res)
   const response = JSON.parse(res.event.target.responseText) as Response<string>
   message.success('上传：' + response.msg)
   const avatarSrc =baseFileURL + response.data

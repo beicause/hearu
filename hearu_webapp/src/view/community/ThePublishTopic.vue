@@ -24,7 +24,6 @@ function updateFile(files: UploadFileInfo[]) {
 function uploadFinish(res: { file: UploadFileInfo, event?: any }) {
   const response = JSON.parse(res.event.target.responseText)
   res.file.url = response.data
-  console.log(res.file)
   return undefined
 }
 

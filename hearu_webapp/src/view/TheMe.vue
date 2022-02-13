@@ -24,6 +24,7 @@ import IconButton from '../components/IconVertButton.vue'
 import { ensureLogin, getInfo } from '../common/api_login'
 import { useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
+import { checkAppUpdateDialog } from '../common/android'
 
 ensureLogin()
 
@@ -41,7 +42,6 @@ getInfo().then(res => {
 }).catch(err => {
   message.error(err)
 })
-
 
 </script>
 
@@ -100,7 +100,7 @@ getInfo().then(res => {
         <Help class="icon-size text-yellow-300" />
       </template>使用帮助
     </IconButton>
-    <IconButton>
+    <IconButton @click="checkAppUpdateDialog(message)">
       <template #icon>
         <Info class="icon-size text-blue-300" />
       </template>关于

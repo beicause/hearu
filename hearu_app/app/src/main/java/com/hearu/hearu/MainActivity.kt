@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
         setContentView(R.layout.activity_main)
-        val assetLoader = WebViewAssetLoader.Builder().setHttpAllowed(true).addPathHandler(
+        val domain = "qingcheng.asia"
+        val assetLoader = WebViewAssetLoader.Builder().setHttpAllowed(true).setDomain(domain).addPathHandler(
             "/assets/",
             WebViewAssetLoader.AssetsPathHandler(this)
         ).build()
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             addJavascriptInterface(JavaScriptInterface(this@MainActivity), "Android")
-            loadUrl("http://${WebViewAssetLoader.DEFAULT_DOMAIN}/assets/index.html")
+            loadUrl("https://${domain}/assets/index.html")
         }
     }
 

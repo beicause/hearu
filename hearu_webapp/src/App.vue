@@ -3,6 +3,7 @@ import { GlobalThemeOverrides, zhCN, dateZhCN } from 'naive-ui'
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { themeObject } from './common/state'
+import TheOther from './TheOther.vue'
 const theme: GlobalThemeOverrides = {
   common: {
     primaryColor: '#2196f3',
@@ -39,6 +40,7 @@ if (localStorage.getItem('token'))
       <NDialogProvider>
         <NLayout position="absolute">
           <router-view></router-view>
+          <TheOther></TheOther>
         </NLayout>
       </NDialogProvider>
     </NMessageProvider>

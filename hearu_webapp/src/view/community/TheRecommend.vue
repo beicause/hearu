@@ -35,8 +35,6 @@ initTopics()
 function extractSrc(content: string) {
   if (content.startsWith('__SRC[') && content.indexOf(']SRC__') >= 6) {
     const sources = JSON.parse(content.substring(5, content.indexOf(']SRC__') + 1)) as { url: string, type: string }[]
-    console.log(sources)
-
     if (Array.isArray(sources) && (sources.length === 0 || typeof sources[0] === 'object')) return { content: content.substring(content.indexOf(']SRC__') + 6), sources }
   }
   return { content, sources: [] }
