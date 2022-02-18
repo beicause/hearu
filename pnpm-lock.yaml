@@ -11,6 +11,7 @@ importers:
   hearu_webapp:
     specifiers:
       '@iconify/json': ^2.0.29
+      '@types/three': ^0.137.0
       '@typescript-eslint/eslint-plugin': ^5.10.1
       '@typescript-eslint/parser': ^5.10.1
       '@vitejs/plugin-vue': ^2.0.0
@@ -21,6 +22,7 @@ importers:
       eslint-plugin-vue: ^8.3.0
       lint-staged: ^12.3.2
       naive-ui: ^2.24.6
+      three: ^0.137.5
       typescript: ^4.4.4
       unplugin-icons: ^0.13.0
       unplugin-vue-components: ^0.17.14
@@ -32,9 +34,11 @@ importers:
       vuex: ^4.0.2
       windicss: ^3.4.3
     dependencies:
+      three: 0.137.5
       vue: 3.2.30
     devDependencies:
       '@iconify/json': 2.0.34
+      '@types/three': 0.137.0
       '@typescript-eslint/eslint-plugin': 5.11.0_de5a1ddccd75ca1e499b8b8491d3dcba
       '@typescript-eslint/parser': 5.11.0_eslint@8.8.0+typescript@4.5.5
       '@vitejs/plugin-vue': 2.2.0_vite@2.8.0+vue@3.2.30
@@ -242,6 +246,10 @@ packages:
 
   /@types/node/14.14.45:
     resolution: {integrity: sha512-DssMqTV9UnnoxDWu959sDLZzfvqCF0qDNRjaWeYSui9xkFe61kKo4l1TWNTQONpuXEm+gLMRvdlzvNHBamzmEw==}
+    dev: true
+
+  /@types/three/0.137.0:
+    resolution: {integrity: sha512-Xc5EAlfYmgrCLI/VlSVqiRJAtzhWF0Rw2jSq48nqJy+Hcb5sfDOXyfZn1+RNcHyi9l8CeCAXCZygO8IyeOJVEA==}
     dev: true
 
   /@types/throttle-debounce/2.1.0:
@@ -2297,6 +2305,10 @@ packages:
   /text-table/0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
     dev: true
+
+  /three/0.137.5:
+    resolution: {integrity: sha512-rTyr+HDFxjnN8+N/guZjDgfVxgHptZQpf6xfL/Mo7a5JYIFwK6tAq3bzxYYB4Ae0RosDZlDuP+X5aXDXz+XnHQ==}
+    dev: false
 
   /through/2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}

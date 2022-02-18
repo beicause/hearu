@@ -5,7 +5,9 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import android.webkit.JavascriptInterface
+import com.huawei.hms.signpal.GeneratorConstants
 import org.json.JSONObject
 
 
@@ -31,5 +33,11 @@ class JavaScriptInterface(val context: Context) {
     fun writeClipboard(str: String){
         val manager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         manager.setPrimaryClip(ClipData.newPlainText(str,str))
+    }
+
+    @JavascriptInterface
+    fun text2sign(text:String){
+        val id =SignGenerator.signGenerator?.text2SignMotion(text, GeneratorConstants.QUEUE_MODE)
+        Log.i("mysign", "id:$id")
     }
 }

@@ -4,12 +4,17 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.util.Pair
 import android.view.KeyEvent
+import android.view.WindowManager
 import android.webkit.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.webkit.WebViewAssetLoader
+import com.huawei.hms.signpal.*
 import java.util.*
 
 
@@ -21,16 +26,20 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
         setContentView(R.layout.activity_main)
+        // 避免获取版本时跨域
         val domain = "qingcheng.asia"
-        val assetLoader = WebViewAssetLoader.Builder().setHttpAllowed(true).setDomain(domain).addPathHandler(
-            "/assets/",
-            WebViewAssetLoader.AssetsPathHandler(this)
-        ).build()
-        val launchChooser = registerForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) {
-            filePathCallback?.onReceiveValue(it?.toTypedArray())
-        }
+        val assetLoader =
+            WebViewAssetLoader.Builder().setHttpAllowed(true).setDomain(domain).addPathHandler(
+                "/assets/",
+                WebViewAssetLoader.AssetsPathHandler(this)
+            ).build()
+        val launchChooser =
+            registerForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) {
+                filePathCallback?.onReceiveValue(it?.toTypedArray())
+            }
         findViewById<WebView>(R.id.wv_main).apply {
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
@@ -45,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             }
             webChromeClient = object : WebChromeClient() {
                 override fun onConsoleMessage(message: String, lineNumber: Int, sourceID: String) {
-                    Log.d("Hearu", "$message -- From line $lineNumber of $sourceID")
+                    Log.i("myweb", "$message -- From line $lineNumber of $sourceID")
                 }
 
                 override fun onShowFileChooser(
@@ -59,7 +68,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             addJavascriptInterface(JavaScriptInterface(this@MainActivity), "Android")
+            SignGenerator.initSignGenerator { motion, face ->
+                Handler(Looper.getMainLooper()).post {
+                    evaluateJavascript(
+                        "onSignData($motion, $face)",
+                        null
+                    )
+                }
+            }
             loadUrl("https://${domain}/assets/index.html")
+//            loadUrl("http://192.168.0.103:3000")
         }
     }
 
@@ -86,6 +104,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         toast = null
+        SignGenerator.signGenerator?.apply {
+            stop()
+            shutdown()
+        }
         super.onDestroy()
     }
 }

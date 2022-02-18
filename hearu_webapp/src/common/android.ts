@@ -4,6 +4,7 @@ export const Android = (window as any).Android as {
   getTheme(): 'dark' | 'night',
   getVersion(): string,
   writeClipboard(str: string): void
+  text2sign(text:string):void
 } | undefined
 
 export const Version = { code: '', name: '' }
@@ -40,7 +41,8 @@ export function checkAppUpdateDialog(message?:MessageApiInjection,dialog?:Dialog
         }
       })
     }
-  })
+  }).catch(err=>console.log(err)
+  )
 }
 
 

@@ -11,7 +11,21 @@
 -keepclassmembers class com.hearu.hearu.JavaScriptInterface {
    public *;
 }
-
+-ignorewarnings
+-keepattributes *Annotation*
+-keepattributes Exceptions
+-keepattributes InnerClasses
+-keepattributes Signature
+-keepattributes SourceFile,LineNumberTable
+-keep class com.huawei.hianalytics.**{*;}
+-keep class com.huawei.updatesdk.**{*;}
+-keep class com.huawei.hms.**{*;}
+-assumenosideeffects class android.util.Log {
+    public static d(...);
+    public static i(...);
+    public static e(...);
+    public static w(...);
+}
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable

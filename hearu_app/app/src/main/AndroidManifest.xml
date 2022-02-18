@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hearu.hearu">
 
+    <!--访问网络权限-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--访问网络状态权限-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hearu"
+        android:name=".App"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
