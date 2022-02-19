@@ -13,7 +13,7 @@ const div_three = ref<HTMLDivElement | null>(null)
 const skeleton = [] as Float32Array[]
 const frames = [] as Float32Array[][]
 let lastTime: number | null = null
-let fps = 0
+let fps: number | null = null
 watch(div_three, div => {
   if (!div) return
 
@@ -33,14 +33,14 @@ watch(div_three, div => {
     requestAnimationFrame(renderLooper)
     trackballControls.update()
     const currentTime = new Date().getTime()
-    if (lastTime && currentTime - lastTime > 1/fps) {
+    if (!lastTime || (fps && (currentTime - lastTime > 1000 / fps))) {
       const skeleton = frames.shift()
       skeleton?.forEach(q => {
         const bone = scene.getObjectByName(String(q[4]))
         bone?.quaternion.set(q[0], q[1], q[2], q[3])
       })
+      lastTime = currentTime
     }
-    lastTime = currentTime
     render()
   }
 
