@@ -68,10 +68,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             addJavascriptInterface(JavaScriptInterface(this@MainActivity), "Android")
-            SignGenerator.initSignGenerator { motion, face ->
+            SignGenerator.initSignGenerator { motion, face, fps ->
                 Handler(Looper.getMainLooper()).post {
                     evaluateJavascript(
-                        "onSignData($motion, $face)",
+                        "onSignData($motion, $face,$fps)",
                         null
                     )
                 }

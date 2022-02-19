@@ -10,8 +10,10 @@ import { SelectOption } from 'naive-ui'
 import Exchange from '~icons/la/exchange-alt'
 
 const div_three = ref<HTMLDivElement | null>(null)
-const boneQuaternions = [] as Float32Array[]
-
+const skeleton = [] as Float32Array[]
+const frames = [] as Float32Array[][]
+let lastTime: number | null = null
+let fps = 0
 watch(div_three, div => {
   if (!div) return
 
@@ -26,14 +28,19 @@ watch(div_three, div => {
   camera.position.set(0, 0, 1.2)
   camera.applyQuaternion(new Quaternion(0, 0, 0, -1))
   const trackballControls = new TrackballControls(camera, renderer.domElement)
-
   const render = () => renderer.render(scene, camera)
   const renderLooper = () => {
     requestAnimationFrame(renderLooper)
     trackballControls.update()
-    const p = boneQuaternions.shift()
-    const bone = p ? scene.getObjectByName(String(p[4])) : undefined
-    p && bone?.quaternion.set(p[0], p[1], p[2], p[3])
+    const currentTime = new Date().getTime()
+    if (lastTime && currentTime - lastTime > 1/fps) {
+      const skeleton = frames.shift()
+      skeleton?.forEach(q => {
+        const bone = scene.getObjectByName(String(q[4]))
+        bone?.quaternion.set(q[0], q[1], q[2], q[3])
+      })
+    }
+    lastTime = currentTime
     render()
   }
 
@@ -61,11 +68,12 @@ watch(div_three, div => {
   }, undefined, err => console.log(err)
   )
 
-    ; (window as any).onSignData = (motion: string, face: string) => {
+    ; (window as any).onSignData = (motion: string, face: string, _fps: number) => {
+      console.log(_fps)
       console.log(motion + '\n' + face)
+      fps = _fps
       const motionArr = JSON.parse(`[${motion}]`) as number[]
       const q = new Float32Array(5)
-      // let skip = true
       for (let i = 0; i < motion.length; i++) {
         switch (i % 4) {
           case 0: q[3] = motionArr[i]
@@ -77,11 +85,12 @@ watch(div_three, div => {
           case 3: {
             q[2] = motionArr[i]
             q[4] = ((i - 3) / 4) % 45
-            // skip = !skip
-            // if (skip) {
             const p = Object.assign({}, q)
-            boneQuaternions.push(p)
-            // }
+            skeleton.push(p)
+            if (skeleton.length === 45) {
+              frames.push(JSON.parse(JSON.stringify(skeleton)))
+              skeleton.length = 0
+            }
             break
           }
         }

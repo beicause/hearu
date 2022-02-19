@@ -11,8 +11,8 @@ android {
         applicationId "com.hearu.hearu"
         minSdk 24
         targetSdk 31
-        versionCode 102
-        versionName "V1.0.2"
+        versionCode 103
+        versionName "V1.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -13,7 +13,7 @@ import java.util.*
 object SignGenerator {
     var signGenerator: SignGenerator? = null
 
-    inline fun initSignGenerator(crossinline onData: (String, String) -> Unit) {
+    inline fun initSignGenerator(crossinline onData: (String, String, Int) -> Unit) {
         val setting = GeneratorSetting()
             .setLanguage(GeneratorConstants.CN_CSL)
         signGenerator = SignGenerator(setting)
@@ -43,11 +43,12 @@ object SignGenerator {
             ) {
                 val motionDataList = signFragment?.getSignMotionDataArray()
                 val faceArr = signFragment?.getFaceMotion()
-                onData(Arrays.toString(motionDataList), Arrays.toString(faceArr))
+                onData(
+                    Arrays.toString(motionDataList),
+                    Arrays.toString(faceArr),
+                    signFragment?.signMotionFPS ?: 0
+                )
                 Log.i("mysign", Arrays.toString(faceArr))
-                signFragment?.getSignMotionDataMap()?.forEach {
-                    Log.i("mysign",Arrays.toString(it["LeftHandThumb3"]))
-                }
             }
 
             override fun onError(taskId: String, err: SignPalError) {
