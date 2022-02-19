@@ -10,8 +10,8 @@ import { SelectOption } from 'naive-ui'
 import Exchange from '~icons/la/exchange-alt'
 
 const div_three = ref<HTMLDivElement | null>(null)
-const tasks = [] as ((...arg: any) => any)[]
-// let lastTime: number | null = null
+const boneQuaternions = [] as Float32Array[]
+
 watch(div_three, div => {
   if (!div) return
 
@@ -30,11 +30,10 @@ watch(div_three, div => {
   const render = () => renderer.render(scene, camera)
   const renderLooper = () => {
     requestAnimationFrame(renderLooper)
-    // if (lastTime && new Date().getTime() - lastTime < 1000) return
-    // lastTime = new Date().getTime()
     trackballControls.update()
-    const fun = tasks.shift()
-    fun && fun()
+    const p = boneQuaternions.shift()
+    const bone = p ? scene.getObjectByName(String(p[4])) : undefined
+    p && bone?.quaternion.set(p[0], p[1], p[2], p[3])
     render()
   }
 
@@ -65,26 +64,24 @@ watch(div_three, div => {
     ; (window as any).onSignData = (motion: string, face: string) => {
       console.log(motion + '\n' + face)
       const motionArr = JSON.parse(`[${motion}]`) as number[]
-      const q = { x: 0, y: 0, z: 0, w: 1 }
-      let skip = true
+      const q = new Float32Array(5)
+      // let skip = true
       for (let i = 0; i < motion.length; i++) {
         switch (i % 4) {
-          case 0: q.w = motionArr[i]
+          case 0: q[3] = motionArr[i]
             break
-          case 1: q.x = motionArr[i]
+          case 1: q[0] = motionArr[i]
             break
-          case 2: q.y = motionArr[i]
+          case 2: q[1] = motionArr[i]
             break
           case 3: {
-            q.z = motionArr[i]
-            skip = !skip
-            if (!skip) {
-              const p = Object.assign({}, q)
-              tasks.push(() => {
-                const bone = scene.getObjectByName(String(((i - 3) / 4) % 45))
-                bone?.quaternion.set(p.x, p.y, p.z, p.w)
-              })
-            }
+            q[2] = motionArr[i]
+            q[4] = ((i - 3) / 4) % 45
+            // skip = !skip
+            // if (skip) {
+            const p = Object.assign({}, q)
+            boneQuaternions.push(p)
+            // }
             break
           }
         }
