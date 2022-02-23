@@ -25,10 +25,10 @@ jobs:
           registry-url: https://registry.npmmirror.com/
 
       - name: Install dependencies
-        run: cd hearu_webapp && pnpm i
+        run: cd web && pnpm i
 
       - name: Run lint
-        run:  cd hearu_webapp && pnpm lint && pnpm check
+        run:  cd web && pnpm lint && pnpm check
 
       - name: Build
-        run:  cd hearu_webapp && pnpm build
+        run:  cd web && pnpm build
