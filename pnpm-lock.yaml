@@ -59,6 +59,59 @@ importers:
       vuex: 4.0.2_vue@3.2.30
       windicss: 3.4.3
 
+  web:
+    specifiers:
+      '@iconify/json': ^2.0.29
+      '@types/three': ^0.137.0
+      '@typescript-eslint/eslint-plugin': ^5.10.1
+      '@typescript-eslint/parser': ^5.10.1
+      '@vitejs/plugin-vue': ^2.0.0
+      axios: ^0.25.0
+      babylonjs: ^4.2.1
+      babylonjs-loaders: ^4.2.1
+      crypto-js: ^4.1.1
+      eslint: ^8.7.0
+      eslint-define-config: ^1.2.3
+      eslint-plugin-vue: ^8.3.0
+      lint-staged: ^12.3.2
+      naive-ui: ^2.24.6
+      typescript: ^4.4.4
+      unplugin-icons: ^0.13.0
+      unplugin-vue-components: ^0.17.14
+      vite: ^2.7.2
+      vite-plugin-windicss: ^1.6.3
+      vue: ^3.2.25
+      vue-router: ^4.0.2
+      vue-tsc: ^0.29.8
+      vuex: ^4.0.2
+      windicss: ^3.4.3
+    dependencies:
+      babylonjs: 4.2.1
+      babylonjs-loaders: 4.2.1
+      vue: 3.2.30
+    devDependencies:
+      '@iconify/json': 2.0.34
+      '@types/three': 0.137.0
+      '@typescript-eslint/eslint-plugin': 5.11.0_de5a1ddccd75ca1e499b8b8491d3dcba
+      '@typescript-eslint/parser': 5.11.0_eslint@8.8.0+typescript@4.5.5
+      '@vitejs/plugin-vue': 2.2.0_vite@2.8.0+vue@3.2.30
+      axios: 0.25.0
+      crypto-js: 4.1.1
+      eslint: 8.8.0
+      eslint-define-config: 1.2.4
+      eslint-plugin-vue: 8.4.1_eslint@8.8.0
+      lint-staged: 12.3.3
+      naive-ui: 2.25.1_vue@3.2.30
+      typescript: 4.5.5
+      unplugin-icons: 0.13.1_vite@2.8.0
+      unplugin-vue-components: 0.17.18_vite@2.8.0+vue@3.2.30
+      vite: 2.8.0
+      vite-plugin-windicss: 1.7.0_vite@2.8.0
+      vue-router: 4.0.12_vue@3.2.30
+      vue-tsc: 0.29.8_typescript@4.5.5
+      vuex: 4.0.2_vue@3.2.30
+      windicss: 3.4.3
+
 packages:
 
   /@antfu/install-pkg/0.1.0:
@@ -679,6 +732,21 @@ packages:
     dependencies:
       '@babel/types': 7.17.0
     dev: true
+
+  /babylonjs-gltf2interface/4.2.1:
+    resolution: {integrity: sha512-ZBfKgIoztO1x1nyf9aPQJ+WXmB6Kw0VlyxvcKchIixbICqeeExiN8nmjvypwXC4hl+5ZDMnUKQNrIhh7uzulnA==}
+    dev: false
+
+  /babylonjs-loaders/4.2.1:
+    resolution: {integrity: sha512-WLpbadXDyxbBQogU0SOrpwgAWN/DJ1xn5kCRD31NVoCbBIpvkdDIvzpRvze2esxrlv/KM8wbDu62ShJd6rQnVQ==}
+    dependencies:
+      babylonjs: 4.2.1
+      babylonjs-gltf2interface: 4.2.1
+    dev: false
+
+  /babylonjs/4.2.1:
+    resolution: {integrity: sha512-FQdJ2VTENUpUJQ30ddihwTjV6K94kglET0P7jV8OQzjA4eez3sotmG22Fn9+8yb069SA26KnrAGOI2sKMQ7BCw==}
+    dev: false
 
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -1808,7 +1876,7 @@ packages:
     dev: true
 
   /ms/2.1.2:
-    resolution: {integrity: sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=, tarball: ms/download/ms-2.1.2.tgz?cache=0&sync_timestamp=1632883299868&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fms%2Fdownload%2Fms-2.1.2.tgz}
+    resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
     dev: true
 
   /naive-ui/2.25.1_vue@3.2.30:
