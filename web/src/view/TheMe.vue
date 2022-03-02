@@ -23,7 +23,7 @@ import { ref } from 'vue'
 import IconButton from '../components/IconVertButton.vue'
 import { ensureLogin, getInfo } from '../common/api_login'
 import { useRouter } from 'vue-router'
-import { useMessage } from 'naive-ui'
+import { useDialog, useMessage } from 'naive-ui'
 import { checkAppUpdateDialog } from '../common/android'
 
 ensureLogin()
@@ -34,6 +34,7 @@ const name = ref('')
 const vip = ref('VIP')
 const level = ref('LV1')
 const message = useMessage()
+const dialog = useDialog()
 
 getInfo().then(res => {
   res.data.code !== 0 && message.error(res.data.msg)
@@ -100,7 +101,7 @@ getInfo().then(res => {
         <Help class="icon-size text-yellow-300" />
       </template>使用帮助
     </IconButton>
-    <IconButton @click="checkAppUpdateDialog(true, message)">
+    <IconButton @click="checkAppUpdateDialog(true,message,dialog)">
       <template #icon>
         <Info class="icon-size text-blue-300" />
       </template>关于
