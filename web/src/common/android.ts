@@ -19,11 +19,11 @@ import { useDialog, useMessage } from 'naive-ui'
 import { DialogApiInjection } from "naive-ui/lib/dialog/src/DialogProvider"
 import { MessageApiInjection } from "naive-ui/lib/message/src/MessageProvider"
 
-export function checkAppUpdateDialog(message?:MessageApiInjection,dialog?:DialogApiInjection) {
+export function checkAppUpdateDialog(force = false, message?:MessageApiInjection,dialog?:DialogApiInjection) {
   const _dialog =dialog?? useDialog()
   const _message =message?? useMessage()
   getAppUpdate().then(res => {
-    if (localStorage.getItem('ignore_version') === res.data.code) return
+    if (!force && localStorage.getItem('ignore_version') === res.data.code) return
     const isUpdate = Android && parseInt(res.data.code) > parseInt((JSON.parse(Android.getVersion()) as typeof Version).code)
     if (isUpdate) {
       _dialog.success({

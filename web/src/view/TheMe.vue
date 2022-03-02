@@ -100,7 +100,7 @@ getInfo().then(res => {
         <Help class="icon-size text-yellow-300" />
       </template>使用帮助
     </IconButton>
-    <IconButton @click="checkAppUpdateDialog(message)">
+    <IconButton @click="checkAppUpdateDialog(true, message)">
       <template #icon>
         <Info class="icon-size text-blue-300" />
       </template>关于

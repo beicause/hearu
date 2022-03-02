@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { InputInst } from 'naive-ui'
 // @ts-ignore
 import Search from '~icons/bi/search'
 // @ts-ignore
@@ -13,9 +11,8 @@ import GolfCourse from '~icons/ic/baseline-golf-course'
 import DynamicFeed from '~icons/ic/baseline-dynamic-feed'
 
 import IconButton from '../components/IconVertButton.vue'
+import InputSearch from '../components/InputSearch.vue'
 
-const isSearch = ref(false)
-const inputSearch = ref<InputInst | null>(null)
 const carouselImages = [
   'http://www.cndcm.cn/uploadfile/2021/0308/20210308095808395.jpg',
   'http://www.cndcm.cn/uploadfile/2018/0428/20180428061724645.jpg',
@@ -33,20 +30,13 @@ const news = [
 </script>
 <template>
   <div class="mx-2">
-    <NInputGroup class="top-2 fixed z-1 w-auto left-2 right-2">
-      <NInput
-        ref="inputSearch"
-        placeholder="零基础学手语"
-        @keyup.enter="inputSearch && inputSearch.blur()"
-        @blur="isSearch = false"
-        @focus="isSearch = true"
-      >
+    <div class="top-2 fixed z-1 w-auto left-2 right-2">
+      <InputSearch placeholder="零基础学手语">
         <template #prefix>
           <Search />
         </template>
-      </NInput>
-      <NButton v-show="isSearch">取消</NButton>
-    </NInputGroup>
+      </InputSearch>
+    </div>
     <NCarousel autoplay class="pt-12">
       <img v-for="(src, index) in carouselImages" :key="index" class="carousel-img" :src="src" />
     </NCarousel>

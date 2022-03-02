@@ -76,15 +76,15 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-//            loadUrl("https://${domain}/assets/index.html")
-            loadUrl("http://192.168.0.103:3000")
+            loadUrl("https://${domain}/assets/index.html")
+//            loadUrl("http://192.168.43.223:3000")
         }
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
         val webView = findViewById<WebView>(R.id.wv_main)
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            arrayOf("/login", "/nav/main", "/nav/shop", "/nav/me", "/nav/community").forEach {
+            arrayOf("/login", "/nav/main", "/nav/shop", "/nav/me", "/nav/community","/nav/translation").forEach {
                 if (webView.url?.contains(it) == true) {
                     if (Date().time - time < 2000) {
                         toast?.cancel()
