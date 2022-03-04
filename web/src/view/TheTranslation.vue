@@ -21,6 +21,7 @@ async function createScene(engine: Engine) {
   scene.createDefaultLight(true)
   camera.setPosition(new Vector3(0, 1, 2))
   camera.setTarget(new Vector3(0, 1, 0))
+  camera.pinchPrecision = 100
   await SceneLoader.ImportMeshAsync('MBlab_sk1645169489.4555278', './model/', 'male.glb', scene)
   new AnimationGroup('motion', scene)
   // scene.debugLayer.show({ embedMode: true })
