@@ -12,6 +12,8 @@ import DynamicFeed from '~icons/ic/baseline-dynamic-feed'
 
 import IconButton from '../components/IconVertButton.vue'
 import InputSearch from '../components/InputSearch.vue'
+import img_sixiao from '../assets/xcsx.jpg'
+import img_lvjing from '../assets/ljsq.jpg'
 
 const carouselImages = [
   'http://www.cndcm.cn/uploadfile/2021/0308/20210308095808395.jpg',
@@ -29,15 +31,16 @@ const news = [
 ]
 </script>
 <template>
-  <div class="mx-2">
-    <div class="top-2 fixed z-1 w-auto left-2 right-2">
+  <div class="mx-2 mb-15">
+    <div class="pt-2">
       <InputSearch placeholder="零基础学手语">
         <template #prefix>
           <Search />
         </template>
       </InputSearch>
     </div>
-    <NCarousel autoplay class="pt-12">
+
+    <NCarousel autoplay class="mt-2">
       <img v-for="(src, index) in carouselImages" :key="index" class="carousel-img" :src="src" />
     </NCarousel>
     <div class="mt-1 flex justify-center">
@@ -66,20 +69,25 @@ const news = [
         社区动态
       </IconButton>
     </div>
-    <NH6 class="my-0 pb-1 flex justify-between items-center" prefix="bar">
-      <span>推荐阅读</span>
+
+    <NH6 class="my-0 pb-1 flex justify-between items-center my-2" prefix="bar">
+      <span class="text-lg">推荐阅读</span>
       <NButton ghost type="primary" :bordered="false">>></NButton>
     </NH6>
     <div class="flex flex-col">
-      <NEllipsis
-        v-for="(_news, index) in news"
-        :key="index"
-        class="pt-1"
-        :tooltip="false"
-      >
+      <NEllipsis v-for="(_news, index) in news" :key="index" class="pt-1" :tooltip="false">
         {{ _news }}
       </NEllipsis>
     </div>
+
+    <NH6 class="my-0 pb-1 flex justify-between items-center my-2" prefix="bar">
+      <span class="text-lg">公益活动</span>
+      <NButton ghost type="primary" :bordered="false">>></NButton>
+    </NH6>
+    <div>绿锦社区志愿活动</div>
+    <NImage class="rounded-xl mx-1" :show-toolbar="false" :src="img_lvjing"></NImage>
+    <div>宣城四小志愿活动</div>
+    <NImage class="rounded-xl mx-1" :show-toolbar="false" :src="img_sixiao"></NImage>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { comment as publishComment, CommentData, getComment, getTopic, like, TopicData, unlike } from '../../common/api_topic'
 import { baseFileURL } from '../../common/api_upload'
 // @ts-ignore
@@ -126,6 +126,7 @@ function commentClick() {
           v-for="src in extractSrc(topic.content).sources.filter(s => s.type.startsWith('image/'))"
           :key="src.url"
           object-fit="contain"
+          :show-toolbar="false"
           style="width: 30vw;"
           :src="baseFileURL + src.url"
         />
