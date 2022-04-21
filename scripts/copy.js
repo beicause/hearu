@@ -1,4 +1,5 @@
 const fs = require('fs')
 
-fs.rmSync('app/app/src/main/assets', { recursive: true })
-fs.cpSync('web/dist', 'app/app/src/main/assets', { recursive: true })
+const dest = 'app/app/src/main/assets'
+if (fs.existsSync(dest)) fs.rmSync(dest, { recursive: true })
+fs.cpSync('web/dist', dest, { recursive: true })
